@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3.fun - Unblocked Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--light);
+            width: 100%;
+            padding: 5px 10px;
+        }
+
+        .search-bar i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.2), transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-filter {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-filter.active, .category-filter:hover {
+            background: var(--primary);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .game-thumbnail {
+            height: 180px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .game-thumbnail::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        }
+
+        .game-info {
+            padding: 15px;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .game-category {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .play-button {
+            display: block;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .play-button:hover {
+            background: var(--secondary);
+        }
+
+        /* Game Modal */
+        .game-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .game-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 90%;
+            height: 80%;
+            background: var(--dark);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        .game-frame {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .category-filters {
+                justify-content: center;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    web3.<span>fun</span>
+                </a>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search for games...">
+                </div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Games</a>
+                    <a href="#">Categories</a>
+                    <a href="#">Favorites</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Play Unblocked Games Anywhere</h1>
+            <p>Web3.fun offers a wide collection of HTML5 games that work on any device. No downloads, no restrictions - just pure gaming fun!</p>
+            <a href="#games" class="cta-button">Explore Games</a>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <div class="container">
+            <div class="section-header">
+                <h2>Popular Games</h2>
+                <div class="category-filters">
+                    <div class="category-filter active" data-category="all">All</div>
+                    <div class="category-filter" data-category="action">Action</div>
+                    <div class="category-filter" data-category="adventure">Adventure</div>
+                    <div class="category-filter" data-category="puzzle">Puzzle</div>
+                    <div class="category-filter" data-category="racing">Racing</div>
+                    <div class="category-filter" data-category="sports">Sports</div>
+                </div>
+            </div>
+
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be populated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Game Title</div>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <iframe class="game-frame" id="gameFrame" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Web3.fun</h3>
+                    <p>Your ultimate destination for unblocked HTML5 games. Play anywhere, anytime!</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">All Games</a></li>
+                        <li><a href="#">New Games</a></li>
+                        <li><a href="#">Popular Games</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Adventure</a></li>
+                        <li><a href="#">Puzzle</a></li>
+                        <li><a href="#">Racing</a></li>
+                        <li><a href="#">Sports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Report Issue</a></li>
+                        <li><a href="#">Request Game</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                2025 Web3.fun
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const games = [
+            {
+              id: 1,
+              title: "Polytrack",
+              category: "racing",
+              thumbnail: "https://imgs.search.brave.com/Z_O0ett4xxdksbmVrAzRB1b-_2ZSvsZ2Nvyz33W_G-o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Z0Y2RuLm5l/dC9pbWFnZXMvdF9h/cHAtY292ZXItcyxm/X2F1dG8vcC9kZjNj/NmE2OS1lNGM3LTQ2/YzUtYjIzMi0xYjdk/ODdiOWFlZjgvMzc3/NTU1MTUwMi9wb2x5/dHJhY2stc2NyZWVu/c2hvdA",
+              url: "https://www.kodub.com/apps/polytrack",
+            description: "A low-poly racing game with loops, jumps and high speeds, where every millisecond counts."
+            },
+            {
+              id: 2,
+              title: "BasketBros",
+              category: "sports",
+              thumbnail: "https://imgs.search.brave.com/BMR9TnfSPCpJ3pWWhBUNlWNJMeHwwCCfNNIuQ4QR7pI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aW55/cGxheS5pby9jYWNo/ZS9kYXRhL2ltYWdl/L2dhbWUvYmFza2V0/YnJvcy1mMjUweDIw/MC5wbmc",
+              url: "https://basketbros.io/",
+            description: "Online multiplayer basketball! Dunk all over your bros!"
+            },
+            {
+              id: 3,
+              title: "Moto X3M",
+              category: "racing",
+              thumbnail: "https://imgs.search.brave.com/IvHalzv0k0SOss5cc97071tyYbme21ZSpn4pRlVgf7c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5tb2RkYi5jb20v/Y2FjaGUvaW1hZ2Vz/L2dhbWVzLzEvNzIv/NzEzMjYvdGh1bWJf/NjIweDIwMDAvTW90/b19YM01fSW1hZ2Vf/MS5wbmc",
+              url: "https://moto-x3m.net/",
+            description: "Grab your motorbike, strap on your helmet and grab some airtime over obstacles to beat the clock on amazing off road circuits."
+            },
+            {
+              id: 4,
+              title: "Slither.io",
+              category: "action",
+              thumbnail: "https://imgs.search.brave.com/Fkfd37IpNL9iLoPqQQa99zfS1YExSRAgzRtRmoVpN2s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDM5NDEy/NzcuanBn",
+              url: "http://slither.com/io",
+            description: "The most famous slither game in the world! Play with millions of players around the world and try to become the longest of the day!"
+            },
+        ];
+
+        // DOM Elements
+        const gamesGrid = document.getElementById('gamesGrid');
+        const gameModal = document.getElementById('gameModal');
+        const gameFrame = document.getElementById('gameFrame');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModal');
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const searchInput = document.getElementById('searchInput');
+
+        // Display games in the grid
+        function displayGames(gamesToDisplay = games) {
+            gamesGrid.innerHTML = '';
+            
+            if (gamesToDisplay.length === 0) {
+                gamesGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--secondary);">No games found. Add some games to the list!</p>';
+                return;
+            }
+            
+            gamesToDisplay.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.setAttribute('data-category', game.category);
+                
+                gameCard.innerHTML = `
+                    <div class="game-thumbnail" style="background-image: url('${game.thumbnail}')"></div>
+                    <div class="game-info">
+                        <div class="game-title">
+                            <span>${game.title}</span>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="game-category">${game.category.charAt(0).toUpperCase() + game.category.slice(1)}</div>
+                        <div class="play-button" data-id="${game.id}">Play Now</div>
+                    </div>
+                `;
+                
+                gamesGrid.appendChild(gameCard);
+            });
+            
+            // Add event listeners to play buttons
+            document.querySelectorAll('.play-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const gameId = parseInt(this.getAttribute('data-id'));
+                    openGame(gameId);
+                });
+            });
+        }
+
+        // Open game in modal
+        function openGame(gameId) {
+            const game = games.find(g => g.id === gameId);
+            if (game) {
+                modalTitle.textContent = game.title;
+                gameFrame.src = game.url;
+                gameModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        function closeGameModal() {
+            gameModal.classList.remove('active');
+            gameFrame.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Filter games by category
+        function filterGames(category) {
+            if (category === 'all') {
+                displayGames();
+                return;
+            }
+            
+            const filteredGames = games.filter(game => game.category === category);
+            displayGames(filteredGames);
+        }
+
+        // Search games
+        function searchGames(query) {
+            if (!query) {
+                displayGames();
+                return;
+            }
+            
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(query.toLowerCase()) || 
+                game.description.toLowerCase().includes(query.toLowerCase())
+            );
+            displayGames(filteredGames);
+        }
+
+        // Event Listeners
+        closeModal.addEventListener('click', closeGameModal);
+        
+        // Close modal when clicking outside
+        gameModal.addEventListener('click', function(e) {
+            if (e.target === gameModal) {
+                closeGameModal();
+            }
+        });
+
+        // Category filter event listeners
+        categoryFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                // Remove active class from all filters
+                categoryFilters.forEach(f => f.classList.remove('active'));
+                // Add active class to clicked filter
+                this.classList.add('active');
+                // Filter games
+                filterGames(this.getAttribute('data-category'));
+            });
+        });
+
+        // Search input event listener
+        searchInput.addEventListener('input', function() {
+            searchGames(this.value);
+        });
+
+        // Initialize the page
+        displayGames();
+    </script>
+</body>
+</html>
